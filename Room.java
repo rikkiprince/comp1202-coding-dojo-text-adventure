@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Room implements Describable{
 
-	HashMap exits = new HashMap<String,Room>();
+	HashMap<String,Room> exits = new HashMap<String,Room>();
 	ArrayList items = new ArrayList<Item>();
 	String name = "";
 	String description = "";
@@ -18,8 +18,14 @@ public class Room implements Describable{
 	}
 
 	public String describe() {
-		String decscription + "\n The exits are: ";
+		String decscription = "\n The exits are: ";
 		// TODO put room exits listed here
+		for(String exit : exits.keySet())
+		{
+			Room target = exits.get(exit);
+			description += "\n"+exit+" : "+target;
+		}
+
 		return this.description;
 	}
 
@@ -33,11 +39,11 @@ public class Room implements Describable{
 	}
 
 	public Room moveTo(String direction) throws Exception{
-		if(exits.contains(direction)){
+		if(exits.containsKey(direction)){
 			return exits.get(direction);
 		}
 			
-		return new Exception("There is no exit " + direction);
+		throw new Exception("There is no exit " + direction);
 	}
 
 }
