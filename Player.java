@@ -23,13 +23,36 @@ public class Player implements Describable
 
 	public String describe()
 	{
-		String out = "";
+		String out = "You are "+this.name;
 
 		for(Item item : this.inventory)
 		{
-			out += item + "\n";
+			out += "\n" + item;
 		}
 
 		return out;
+	}
+	
+	public String lookAt(String[] tokens){
+		String description = "";
+		for(Item item : this.inventory){
+			if(item.getName().equals(tokens[2])){
+				description += item.describe()+"\n";
+			}
+		}
+		
+		description += currentRoom.lookAt(tokens[2]);
+
+		if(description.equals("")){
+			return "There is no item: "+tokens[2];
+		}
+
+		return description;
+	}
+
+	public String move(String direction) throws Exception
+	{
+		currentRoom = currentRoom.moveTo(direction);
+		return currentRoom.describe();
 	}
 }
