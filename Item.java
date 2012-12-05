@@ -21,4 +21,9 @@ public class Item implements Describable
 	{
 		return this.name;
 	}
+
+	public String getName()
+	{
+		return this.name;
+	}
 }
