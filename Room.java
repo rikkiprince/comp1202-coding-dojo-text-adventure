@@ -4,7 +4,7 @@ import java.util.*;
 public class Room implements Describable{
 
 	HashMap<String,Room> exits = new HashMap<String,Room>();
-	ArrayList items = new ArrayList<Item>();
+	ArrayList<Item> items = new ArrayList<Item>();
 	String name = "";
 	String description = "";
 	public static final String NORTH = "north";
@@ -18,15 +18,17 @@ public class Room implements Describable{
 	}
 
 	public String describe() {
-		String decscription = "\n The exits are: ";
-		// TODO put room exits listed here
+		String out = this.description+"\n The exits are: ";
+		
+		int i=0;
 		for(String exit : exits.keySet())
 		{
+			System.out.println("Exit "+(++i));
 			Room target = exits.get(exit);
-			description += "\n"+exit+" : "+target;
+			out += "\n"+exit+" : "+target;
 		}
 
-		return this.description;
+		return out;
 	}
 
 	public boolean addExit(String direction, Room room){
@@ -36,6 +38,7 @@ public class Room implements Describable{
 
 	public boolean addItem(Item item){
 		items.add(item);
+		return true;
 	}
 
 	public Room moveTo(String direction) throws Exception{
@@ -44,6 +47,25 @@ public class Room implements Describable{
 		}
 			
 		throw new Exception("There is no exit " + direction);
+	}
+
+	public String lookAt(String thing)
+	{
+		if(thing.equals("room"))
+			return this.describe();
+		for(Item item : items)
+		{
+			if(item.getName().equals(thing))
+			{
+				return item.describe();
+			}
+		}
+		return thing+" does not exist in the room!\n";
+	}
+
+	public String toString()
+	{
+		return this.name;
 	}
 
 }
