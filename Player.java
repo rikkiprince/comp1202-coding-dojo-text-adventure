@@ -25,9 +25,25 @@ public class Player implements Describable
 	{
 		String out = "You are "+this.name;
 
-		for(Item item : this.inventory)
+		out += "\n" + this.inventory();
+
+		return out;
+	}
+
+	public String inventory()
+	{
+		String out = "You are carrying:";
+
+		if(this.inventory.size() > 0)
 		{
-			out += "\n" + item;
+			for(Item item : this.inventory)
+			{
+				out += "\n" + item;
+			}
+		}
+		else
+		{
+			out += " nothing";
 		}
 
 		return out;
@@ -54,5 +70,10 @@ public class Player implements Describable
 	{
 		currentRoom = currentRoom.moveTo(direction);
 		return currentRoom.describe();
+	}
+
+	public String whereAmI()
+	{
+		return this.currentRoom.describe();
 	}
 }
