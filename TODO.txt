@@ -1,0 +1,4 @@
+List of TODOs for the COMP1202 Coding Dojo text adventure.
+
+[ ] Add shell support for the pickup command. Will require finding that item within current room.
+[ ] Make addExit() reciprocal: exit should be added to target room as well.
