@@ -4,6 +4,10 @@ import java.util.*;
 public class Main {
 
 	public static void main(String[] args){
+		game();
+	}
+	public static void testHarness()
+	{
 		boolean test = false;
 		Room first = new Room("Bilbo's lounge", "There is a burning fire in the corner.");
 		first.addExit(Room.NORTH, new Room("Shire", "The shire seems pieceful a horse and cart passes."));
@@ -31,13 +35,43 @@ public class Main {
 			System.out.println(p.describe());
 			return;
 		}
+	}
+
+	public static Player load(String name)
+	{
+		/*
+			S G
+			L K
+		*/
+
+		Room lounge = new Room("Bilbo's lounge", "There is a burning fire in the corner.");
+		lounge.addItem(new Fire());
+
+		Room shire = new Room("Shire", "The shire seems peaceful; a horse and cart passes.");
+
+		Room garden = new Room("Garden", "A rabbit darts out from between the cabbage patches.");
+
+		Room kitchen = new Room("Kitchen", "A kettle gently whistles.");
+		kitchen.addItem(new Item("kettle"));
+
+		lounge.addExit(Room.NORTH, shire);
+		shire.addExit(Room.EAST, garden);
+		garden.addExit(Room.SOUTH, kitchen);
+		kitchen.addExit(Room.WEST, lounge);
+
+		return new Player(name, lounge);
+	}
+
+	public static void game()
+	{
+		Player p = load("Bilbo");
 
 		System.out.println("   /===============================/");
 		System.out.println("  / Welcome to Unventure          / ");
 		System.out.println(" / the COMP1202 Coding Dojo game /  ");
 		System.out.println("/===============================/   "); 
 
-		System.out.println(first.describe());
+		System.out.println(p.whereAmI());
 
 		System.out.print("\n> ");
 
@@ -47,7 +81,7 @@ public class Main {
 		try {
 			while ((line = in.readLine()) != null){
 				try{
-					if(line.equals("exit")) { 
+					if(line.equals("exit") || line.equals("quit")) { 
 						return; 
 					}
 
@@ -68,7 +102,10 @@ public class Main {
 					else if(verb.equals("move")) {
 						String direction = tokens[1];
 						System.out.println(p.move(direction));
-						System.out.println(p.describe());
+						//System.out.println(p.describe());
+					}
+					else if(verb.equals("i")) {
+						System.out.println(p.inventory());
 					}
 					else {
 						System.err.println("Unrecognised instruction");
