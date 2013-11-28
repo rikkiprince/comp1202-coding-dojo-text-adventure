@@ -1,6 +1,7 @@
 public class Item {
 
 	String name = "no name";
+	int size = 1; // Mass? Volume? Some kinda thing
 	String description = "There is nothing signifcant";
 
 	public Item(String name) {
@@ -19,5 +20,9 @@ public class Item {
 	
 	public String getName(){
 		return this.name;
+	}
+
+	public int getSize(){
+		return this.size;
 	}
 }
