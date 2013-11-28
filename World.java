@@ -3,8 +3,10 @@ import java.util.ArrayList;
 
 public class World {
 	private List<Room> rooms = new ArrayList<Room>();
+	private Player player;
 
 	public World() {
+
 		Room field = new Room("a field", "Surrounding you is beautiful greenery and some trees. To the north is another field and to the west is a large shed.");
 		this.addRoom(field);
 
@@ -15,10 +17,17 @@ public class World {
 		Room anotherField = new Room("a field", "This field is somewhat desolated. To the east is a small cafe.");
 
 		field.addRoom("north", anotherField);
+
+
+		this.player = new Player(field);
 	}
 
 	public void addRoom(Room r) {
 		this.rooms.add(r);
+	}
+
+	public Player getPlayer() {
+		return this.player;
 	}
 
 	public Room getStartingRoom(){

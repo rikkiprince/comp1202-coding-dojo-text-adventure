@@ -20,7 +20,7 @@ class Main{
 		World gameState = new World();
 
 		// Representation of the player
-		Player player = new Player();
+		Player player = gameState.getPlayer();
 
 		// Which Room are we in?
 		Room currentRoom = gameState.getStartingRoom();

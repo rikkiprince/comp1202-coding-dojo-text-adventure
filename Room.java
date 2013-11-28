@@ -43,6 +43,7 @@ public class Room {
 			return d.proceedThrough();
 		}
 		else {
+			System.out.println("There is no "+direction+"!!!");
 			return this;
 		}
 	}
