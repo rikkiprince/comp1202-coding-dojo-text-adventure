@@ -3,7 +3,7 @@ import java.util.*;
 public class Room {
 	private String name;
 	private String description;
-	private List<Item> items;
+	private ContainerItem items;
 	
 
 	private Room north;
@@ -11,25 +11,16 @@ public class Room {
 	private Map<String, Door> exits;
 
 	public Room(String name, String description) {
-		this.name = name;
-		this.description = description;
 
-		this.items = new ArrayList<Item>();
+		this.items = new ContainerItem(name,description);
 		this.exits = new HashMap<String, Door>();
 	}
 
 	public String getDescription() {
-		String desc = this.description;
-		if(this.items.size() > 0){
-			desc += "\n\nYou see:\n";
-			for(Item i: this.items){
-				desc += "    "+i.getName()+"\n";
-			}
-		}
-		return desc;
+		return items.describe();
 	}
 
-	public void addItem(Item i) {
+	public void addItem(Item i) throws Exception{
 		this.items.add(i);
 	}
 

@@ -22,15 +22,14 @@ class Main{
 		// Representation of the player
 		Player player = gameState.getPlayer();
 
-		// Which Room are we in?
-		Room currentRoom = gameState.getStartingRoom();
-
 		// Main game loop - read, eval, print stylee
 		while(running){
 
-			// TODO print current state
-			//System.out.println("It is very dark. You are likely to be eaten by a grue.");
-			System.out.println(currentRoom.getDescription());
+			// Tell the player what's around them
+			System.out.println(player.getCurrentRoom().getDescription());
+
+
+
 
 			// Prompt for input ("wat do?")
 			try{
@@ -51,7 +50,7 @@ class Main{
 					continue;
 				}
 
-				// NB we will lowecase all verbs and actions to make life easier
+				// NB we will lowercase all verbs and actions to make life easier
 
 				// We have one or two words, first is the verb
 				String verb = sentence[0].toLowerCase();
@@ -75,12 +74,7 @@ class Main{
 				if(noun == null){
 					// Look around
 					if("look".equals(verb)){
-							System.out.println("Looking around...");
-							if(currentRoom == null){
-								System.out.println("You are in limbo! Waah!");
-							} else{
-								System.out.println(currentRoom.getDescription());
-							}
+						System.out.println(player.look());
 					}
 	
 					else{
@@ -104,6 +98,7 @@ class Main{
 					// Move to another room
 					else if ("move".equals(verb) || "go".equals(verb)){
 						System.out.println("Going "+noun);
+						player.move(noun);
 					}
 
 					// Fondle things
@@ -118,19 +113,21 @@ class Main{
 					else{
 							System.out.println("I DO NOT KNOW WHAT YOU ARE BLATHERING ABOUT.");
 					}
+
 				
 				}
 
 
 			}
+
+			// lolololol...
 			catch(IOException io){
 				System.out.println("Something bad happened :-( Try something else.");
 			}
 
-			// TODO Parse input
-			
-			// TODO update state
-			
+			// Extra line to space out the responses and make it more readable
+			System.out.println();
+
 		}
 	}
 

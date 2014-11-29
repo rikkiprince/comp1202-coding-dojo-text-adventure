@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 public class ContainerItem extends Item {
 
 	List<Item> contents = new ArrayList<Item>();
+	int capacity = 10;
 
 	public ContainerItem(String title){
 		super(title);
@@ -13,8 +15,20 @@ public class ContainerItem extends Item {
 		super(title, description);
 	}
 
-	public void add(Item item){
-		contents.add(item);
+	public void add(Item item) throws Exception {
+		int total = 0;
+		for(Item contentsItem: contents){
+			total += contentsItem.getSize();
+		}
+		
+		total += item.getSize();
+
+		if(this.capacity > total){
+			contents.add(item);
+			return;
+		}
+
+		throw new Exception("The "+this.name+" is full");
 	}
 
 	public Item remove(String name){
@@ -31,8 +45,6 @@ public class ContainerItem extends Item {
 	}
 
 	public String describe() {
-		//String description = (String)this.description.clone();
-		//description += "\nIt contains: \n"; 
 		String description = this.description + "\nIt contains: \n";
 		for(Item item : contents){
 			description += item+"\n";

@@ -15,6 +15,7 @@ class Player{
 	public Room getCurrentRoom(){
 		return currentRoom;
 	}
+
 	public Room move(String direction){
 		this.currentRoom = this.currentRoom.move(direction);
 		return this.currentRoom;
