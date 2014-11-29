@@ -1,0 +1,5 @@
+room1	direction	room2
+kitchen	south	garden
+garden	north	kitchen
+garden	west	university
+university	east	garden

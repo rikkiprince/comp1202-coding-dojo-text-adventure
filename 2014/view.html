@@ -1,0 +1,107 @@
+<html>
+<head>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<style>
+		body {
+			margin: 0;
+			font-size: 24pt;
+		}
+		#code {
+			width: 70%;
+			/*max-height: 80%;*/
+			overflow: scroll;
+			white-space: pre;
+			display: block;
+			unicode-bidi: embed;
+			float: left;
+			padding: 1em 2em;
+			tab-size: 4;
+		}
+		#filelist {
+			/*border: 1px solid black;*/
+			float: left;
+			/*position: fixed;*/
+			/*padding-right: 1em;*/
+		}
+		#filelist ul li {
+			margin-bottom: 0.5em;
+			padding: 0.25em;
+		}
+		#filelist ul li:hover {
+			background-color: red;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<div id='filelist'><ul></ul></div>
+	<!-- div id='code' class="java"></div -->
+	<pre><code id='code' class="java"></code></pre>
+
+<script>
+String.prototype.endsWith = function(suffix) {
+    return this.indexOf(suffix, this.length - suffix.length) !== -1;
+};
+
+var root = "http://users.ecs.soton.ac.uk/pm5/comp1202/2014_dojo/";
+var currentfile;
+
+function loadFile(url) {
+	$.ajax({
+		url: url,
+		success: function(data) {
+			$('#code').text(data);
+		}
+	});
+}
+
+function poll() {
+	setTimeout(refresh, 5000);
+}
+
+function refresh() {
+	console.log("refreshing "+currentfile);
+	$.ajax({
+		url: root,
+		success: function(data){
+			$('#filelist ul li').remove();
+			$(data).find("td > a").each(function(){
+				// will loop through 
+				//alert("Found a file: " + $(this).attr("href"));
+				var file = $(this).attr("href");
+				if(file.endsWith(".java") || file.endsWith(".tsv") || file.endsWith(".bash") ){
+					if(currentfile == undefined)
+						currentfile = root+file;
+					var li = $('<li>'+file+'</li>');
+					$(li).click(function(){
+						currentfile = root+file;
+						loadFile(currentfile);
+					})
+					$('#filelist ul').append(li);
+				}
+			});
+			loadFile(currentfile);
+		},
+		complete: poll,
+		timeout: 5000,
+	});
+}
+
+$(document).ready(function(){
+	refresh();
+	poll();
+
+	//hljs.configure({useBR: true});
+
+	$('#code').each(function(i, block) {
+		hljs.highlightBlock(block);
+	});
+});
+</script>
+</body>
+
+</html>
