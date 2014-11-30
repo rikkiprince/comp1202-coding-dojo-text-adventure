@@ -1,6 +1,6 @@
 public class Item {
 
-	private int size;
+	protected int size;
 	private int cost;
 	private int rarity;
 	private int damaged;
