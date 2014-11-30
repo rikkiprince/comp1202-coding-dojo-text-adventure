@@ -14,8 +14,11 @@ public class Main {
 		Room kitchen = new Room("Your kitchen", "The kitchen is in a frightful state. In the corner the sink is piled high with crockery in a pool of putrescent water. A number of items are strewn close at hand.");
 		Room garden = new Room("The garden", "The garden is largely unmaintained. Amongst the quivering blades of your meadow are strewn parts of your unfinished time machine.");
 		Room university = new Room("The University of Southampton", "As you approach the towering edifice of the Gower building looms over you. The campus is quiet today with only a few comatose undergraduates trudging between buildings in the chill of the wind.");
+		Room cavern = new Room("The cavern of the evil wizard", "All around you are the carcasses of slain ice dwarfs");
 
 		kitchen.linkRoom("south", garden);
+		garden.linkRoom("east", university);
+		garden.linkRoom("west", cavern);
 
 		return kitchen;
 	}
@@ -60,8 +63,9 @@ public class Main {
 				// Extra line to space out the responses and make it more readable
 				System.out.println();
 
-		System.out.println("You are in "+player.getRoom().getName());
+		System.out.println("You are standing in "+player.getRoom().getName());
 		System.out.println(player.getRoom().getDescription());
+		System.out.println(player.getRoom().getExits());
 
 				System.out.print(Main.prompt);
 				String userInput = input.readLine();
@@ -190,9 +194,18 @@ public class Main {
 		// else split on first space for method in [0] with 1 arg?
 		{
 			Integer firstSpace = userInput.indexOf(" ");
-			String methodName = userInput.substring(0, firstSpace);
-			String[] args = new String[1];
-			args[0] = userInput.substring(firstSpace+1, userInput.length());
+			String methodName;
+			String[] args;
+
+			if(firstSpace == -1) {
+				methodName = userInput;
+				args = new String[0];
+			}
+			else {
+				methodName = userInput.substring(0, firstSpace);
+				args = new String[1];
+				args[0] = userInput.substring(firstSpace+1, userInput.length());
+			}
 			Class[] argTypes = generateArrayOfClass(1, String.class);
 			if(executeMethod(player, methodName, argTypes, args))
 				return true;

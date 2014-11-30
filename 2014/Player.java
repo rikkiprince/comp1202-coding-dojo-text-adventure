@@ -37,6 +37,7 @@ public class Player {
 
 	public void look() {
 		System.out.println(this.currentRoom.getDescription());
+		System.out.println(this.currentRoom.getExits());
 	}
 
 	public void quit() {
