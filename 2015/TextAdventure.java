@@ -26,7 +26,7 @@ public class TextAdventure {
 			System.out.print("> ");
 			input = this.in.nextLine();
 	
-			parse(input);
+			tokenise(input);
 		} while(!input.equals("exit"));
 		System.out.println("Goodbye");
 	}
