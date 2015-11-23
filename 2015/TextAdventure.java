@@ -8,12 +8,15 @@ public class TextAdventure {
 	}
 
 	private Scanner in;
-	//private Room[][] map;
+	private Room[][] map;
 	private Integer x, y;
 
 	public TextAdventure() {
 		this.in = new Scanner(System.in);
-		//this.map = new Rooms[10][10];
+		this.map = new Room[10][10];
+		x = 5;
+		y = 5;
+		this.map[x][y] = new Room();
 	}
 
 	private void play() {
@@ -26,6 +29,7 @@ public class TextAdventure {
 		System.out.println("What do you want to do?");
 
 		do {
+			System.out.println("You are at "+x+","+y);
 			System.out.print("> ");
 			input = this.in.nextLine();
 	
@@ -63,8 +67,16 @@ public class TextAdventure {
 			case "move": System.out.println("Move where?");
 						 break;
 			case "n":	 System.out.println("Move north");
+						 y = y - 1;
+						 break;
+			case "e":	 System.out.println("Move east");
+						 x = x + 1;
+						 break;
+			case "s":	 System.out.println("Move south");
+						 y = y + 1;
 						 break;
 			case "w":	 System.out.println("Move west");
+						 x = x - 1;
 						 break;
 			default:	 System.out.println("I do not know how to "+verb);
 		}
