@@ -42,7 +42,7 @@ public class TextAdventure {
 		do {
 			System.out.println("What do you want to do?");
 			System.out.print("> ");
-			input = this.in.nextLine().trim();
+			input = this.in.nextLine().trim().toLowerCase();
 	
 			tokenise(input);
 			System.out.println();
