@@ -31,12 +31,16 @@ public class Room {
 
 
         public void printExits() {
+		if(exits.isEmpty()) {
+			System.out.println("There is no escape.");
+			return;
+		}
 		System.out.println("There are the following exits: ");
-                for(String direction : exits.keySet())
+		for(String direction : exits.keySet())
 		{
 			System.out.println( "\t"+direction );
 		}
-        }
+	}
 
 	public Room throughDoor(String direction) throws Exception {
 		if(!exits.containsKey(direction)) {
