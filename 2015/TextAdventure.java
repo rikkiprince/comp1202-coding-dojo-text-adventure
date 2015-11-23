@@ -8,17 +8,17 @@ public class TextAdventure {
 	}
 
 	private Scanner in;
-	private Room[][] map;
-	private Integer x, y;
+	private Room currentRoom;
 
 	public TextAdventure() {
 		this.in = new Scanner(System.in);
 		
-		Room a = new Room();
-		Room b = new Room();
+		Room a = new Room("You are in 7/3009. There are lots of undergraduates.");
+		Room b = new Room("This is a corridor. 300 people are trying to leave 7/3009 while 300 are trying to get in.");
 		a.setExit("east", b);
 		b.setExit("west", a);
 
+		this.currentRoom = a;
 
 	}
 
@@ -29,10 +29,10 @@ public class TextAdventure {
 		System.out.println(" Welcome to COMP1202 Adventure ");
 		System.out.println("~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~");
 		System.out.println("");
-		System.out.println("What do you want to do?");
 
 		do {
-			System.out.println("You are at "+x+","+y);
+			System.out.println("You are somewhere ");
+			System.out.println("What do you want to do?");
 			System.out.print("> ");
 			input = this.in.nextLine();
 	
@@ -66,20 +66,22 @@ public class TextAdventure {
 		switch(verb) {
 			case "exit": return;
 			case "look": System.out.println("Look at what?");
+						 currentRoom.printDescription();
+						 currentRoom.getExits();
 						 break;
 			case "move": System.out.println("Move where?");
 						 break;
 			case "n":	 System.out.println("Move north");
-						 y = y - 1;
+						 move("north");
 						 break;
 			case "e":	 System.out.println("Move east");
-						 x = x + 1;
+						 move("east");
 						 break;
 			case "s":	 System.out.println("Move south");
-						 y = y + 1;
+						 move("south");
 						 break;
 			case "w":	 System.out.println("Move west");
-						 x = x - 1;
+						 
 						 break;
 			default:	 System.out.println("I do not know how to "+verb);
 		}
@@ -89,6 +91,15 @@ public class TextAdventure {
 	private void parse(String verb, String object) {
 		switch(verb) {
 			default: System.out.println("I do not know how to "+verb+" "+object);
+		}
+	}
+
+	private void move(String to) {
+		try {
+			Room newRoom = currentRoom.throughDoor(to);
+			this.currentRoom = newRoom;
+		} catch(Exception e) {
+			System.out.println("Cannot move to "+to);
 		}
 	}
 }
