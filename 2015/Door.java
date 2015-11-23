@@ -7,10 +7,10 @@ public class Door {
 		this.two = two;
 	}
 
-	public setOne(Room one) {
+	public void setOne(Room one) {
 		this.one = one;
 	}
-	public setTwo(Room two) {
+	public void setTwo(Room two) {
 		this.two = two;
 	}
 }

@@ -13,10 +13,13 @@ public class TextAdventure {
 
 	public TextAdventure() {
 		this.in = new Scanner(System.in);
-		this.map = new Room[10][10];
-		x = 5;
-		y = 5;
-		this.map[x][y] = new Room();
+		
+		Room a = new Room();
+		Room b = new Room();
+		a.setExit("east", b);
+		b.setExit("west", a);
+
+
 	}
 
 	private void play() {
