@@ -67,7 +67,7 @@ public class TextAdventure {
 			case "exit": return;
 			case "look": System.out.println("Look at what?");
 						 currentRoom.printDescription();
-						 currentRoom.getExits();
+						 currentRoom.printExits();
 						 break;
 			case "move": System.out.println("Move where?");
 						 break;

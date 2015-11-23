@@ -14,7 +14,10 @@ public class Door {
 	public void setTwo(Room two) {
 		this.two = two;
 	}
-	public void setReciprocalDoor(Door door) {
-		this.reciprocalDoor = door;
+	public Room exit(Room roomToLeave) {
+		if(one.equals(roomToLeave)) {
+			return two;
+		} 
+		return one;
 	}
 }
