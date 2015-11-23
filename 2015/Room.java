@@ -18,16 +18,18 @@ public class Room {
 		this.exits.put(direction, door);
 	}
 
-        public String getExitDescription() {
-		String description = "";
+        public void printExits() {
+		System.out.println("There are the following exits: ");
                 for(String direction : exits.keySet())
 		{
-			description += direction + ": \n";
-
+			System.out.println( "\t"+direction );
 		}
         }
 
-	public Room throughDoor(String direction) {
+	public Room throughDoor(String direction) throws Exception {
+		if(!exits.containsKey(direction)) {
+			throw new Exception("There is no exit to the "+direction);
+		}
 		Door door = exits.get(direction);
 		return door.exit(this);
 	}
