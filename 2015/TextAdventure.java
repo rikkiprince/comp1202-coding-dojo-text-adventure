@@ -13,12 +13,20 @@ public class TextAdventure {
 	public TextAdventure() {
 		this.in = new Scanner(System.in);
 		
-		Room a = new Room("You are in 7/3009. There are lots of undergraduates.");
-		Room b = new Room("This is a corridor. 300 people are trying to leave 7/3009 while 300 are trying to get in.");
-		a.setExit("east", b);
-		b.setExit("west", a);
+		Room lectureTheatre = new Room("You are in 7/3009. There are lots of undergraduates.");
+		Room corridor = new Room("This is a corridor. 300 people are trying to leave 7/3009 while 300 are trying to get in.");
+		lectureTheatre.setExit("north", corridor);
+		corridor.setExit("south", lectureTheatre);
+		Room stairs = new Room("These stairs wind round and around.");
+		corridor.setExit("west", stairs);
+		stairs.setExit("east", corridor);
+		Room road = new Room("This road is one way, except for cycles. Be vigilant for cyclists.");
+		stairs.setExit("south", road);
+		road.setExit("north", stairs);
+		Room library = new Room("There are so many books in this library. You could stay here forever.");
+		road.setExit("south", library);
 
-		this.currentRoom = a;
+		this.currentRoom = lectureTheatre;
 
 	}
 
@@ -37,6 +45,7 @@ public class TextAdventure {
 			input = this.in.nextLine().trim();
 	
 			tokenise(input);
+			System.out.println();
 		} while(!input.equals("exit"));
 		System.out.println("Goodbye");
 	}
@@ -71,18 +80,6 @@ public class TextAdventure {
 						 break;
 			case "move": System.out.println("Move where?");
 						 break;
-			case "n":	 System.out.println("Move north");
-						 move("north");
-						 break;
-			case "e":	 System.out.println("Move east");
-						 move("east");
-						 break;
-			case "s":	 System.out.println("Move south");
-						 move("south");
-						 break;
-			case "w":	 System.out.println("Move west");
-						 
-						 break;
 			default:	 System.out.println("I do not know how to "+verb);
 		}
 	}
@@ -90,6 +87,8 @@ public class TextAdventure {
 	// If 2 arguments, then it's verb and object
 	private void parse(String verb, String object) {
 		switch(verb) {
+			case "move":	move(object);
+							break;
 			default: System.out.println("I do not know how to "+verb+" "+object);
 		}
 	}
