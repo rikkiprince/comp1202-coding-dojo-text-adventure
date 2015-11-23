@@ -34,12 +34,14 @@ public class TextAdventure {
 	private void tokenise(String input) {
 		System.out.println(input);
 
+		if(input.length() == 0) {
+			System.out.println("You must type something!");
+			return;
+		}
+
 		String[] words = input.split("\\s+", 2);
 
-		if(words.length == 0) {
-			System.out.println("You must type something!");
-		}
-		else if(words.length == 1) {
+		if(words.length == 1) {
 			parse(words[0]);
 		}
 		else if(words.length == 2) {
