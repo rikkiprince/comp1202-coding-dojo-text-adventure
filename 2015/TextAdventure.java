@@ -29,9 +29,10 @@ public class TextAdventure {
 		System.out.println(" Welcome to COMP1202 Adventure ");
 		System.out.println("~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~");
 		System.out.println("");
+		System.out.println("You are in a room...");
 
 		do {
-			System.out.println("You are somewhere ");
+			currentRoom.printDescription();
 			System.out.println("What do you want to do?");
 			System.out.print("> ");
 			input = this.in.nextLine();
@@ -98,6 +99,7 @@ public class TextAdventure {
 		try {
 			Room newRoom = currentRoom.throughDoor(to);
 			this.currentRoom = newRoom;
+			System.out.println("You are in a room...");
 		} catch(Exception e) {
 			System.out.println("Cannot move to "+to);
 		}
