@@ -32,10 +32,9 @@ public class TextAdventure {
 		System.out.println("You are in a room...");
 
 		do {
-			currentRoom.printDescription();
 			System.out.println("What do you want to do?");
 			System.out.print("> ");
-			input = this.in.nextLine();
+			input = this.in.nextLine().trim();
 	
 			tokenise(input);
 		} while(!input.equals("exit"));
