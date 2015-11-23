@@ -10,4 +10,18 @@ public class Room {
 		this.exits.put(direction, door);
 	}
 
+        public String getExitDescription() {
+		String description = "";
+                for(String direction : exits.keySet())
+		{
+			description += direction + ": \n";
+
+		}
+        }
+
+	public Room throughDoor(String direction) {
+		Door door = exits.get(direction);
+		return door.exit(this);
+	}
+
 }
