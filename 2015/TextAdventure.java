@@ -8,9 +8,12 @@ public class TextAdventure {
 	}
 
 	private Scanner in;
+	//private Room[][] map;
+	private Integer x, y;
 
 	public TextAdventure() {
 		this.in = new Scanner(System.in);
+		//this.map = new Rooms[10][10];
 	}
 
 	private void play() {
@@ -32,7 +35,6 @@ public class TextAdventure {
 	}
 
 	private void tokenise(String input) {
-		System.out.println(input);
 
 		if(input.length() == 0) {
 			System.out.println("You must type something!");
@@ -55,8 +57,15 @@ public class TextAdventure {
 	// If 1 argument, then it's just a verb
 	private void parse(String verb) {
 		switch(verb) {
+			case "exit": return;
 			case "look": System.out.println("Look at what?");
+						 break;
 			case "move": System.out.println("Move where?");
+						 break;
+			case "n":	 System.out.println("Move north");
+						 break;
+			case "w":	 System.out.println("Move west");
+						 break;
 			default:	 System.out.println("I do not know how to "+verb);
 		}
 	}
