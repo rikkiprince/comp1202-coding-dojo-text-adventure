@@ -1,6 +1,7 @@
 public class Door {
 	private Room one;
 	private Room two;
+	private Door reciprocalDoor;
 
 	public Door(Room one, Room two) {
 		this.one = one;
@@ -13,7 +14,6 @@ public class Door {
 	public void setTwo(Room two) {
 		this.two = two;
 	}
-
 	public Room exit(Room roomToLeave) {
 		if(one.equals(roomToLeave)) {
 			return two;
