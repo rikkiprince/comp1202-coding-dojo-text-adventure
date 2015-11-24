@@ -3,11 +3,27 @@ import java.util.*;
 public class Room {
 	private String description;
 	private static Map<String,String> directionMap;
+	private List<Item> items;
 	
 	Map<String,Door> exits = new HashMap<String,Door>();	
 	
 	public Room(String description) {
 		this.description = description;
+		this.items = new ArrayList<Item>();
+	}
+
+	public void addItem(Item i) {
+		this.items.add(i);
+	}
+	public Item take(String s) throws Exception {
+		for(Integer i=0; i<items.size(); i++) {
+			Item item = this.items.get(i);
+			if(s.equals(item.getName().toLowerCase())) {
+				this.items.remove(item);
+				return item;
+			}
+		}
+		throw new Exception("No item called "+s);
 	}
 
 	public void printDescription() {
@@ -29,7 +45,7 @@ public class Room {
 	}
 
 
-        public void printExits() {
+	public void printExits() {
 		if(exits.isEmpty()) {
 			System.out.println("There is no escape.");
 			return;
@@ -38,6 +54,16 @@ public class Room {
 		for(String direction : exits.keySet())
 		{
 			System.out.println( "\t"+direction );
+		}
+	}
+
+	public void printItems() {
+		if(this.items.isEmpty()) {
+			return;
+		}
+		System.out.println("In the room you find: ");
+		for(Item item : this.items) {
+			System.out.println("\t"+item);
 		}
 	}
 

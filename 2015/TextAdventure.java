@@ -9,13 +9,17 @@ public class TextAdventure {
 
 	private Scanner in;
 	private Room currentRoom;
+	private ArrayList<Item> inventory;
 
 	public TextAdventure() {
+		this.inventory = new ArrayList<Item>();
 		this.in = new Scanner(System.in);
 		
 		Room lectureTheatre = new Room("You are in 7/3009. There are lots of undergraduates.");
 		Room corridor = new Room("This is a corridor. 300 people are trying to leave 7/3009 while 300 are trying to get in.");
 		lectureTheatre.setExit("north", corridor);
+		lectureTheatre.addItem(new Item("projector", 100));
+		lectureTheatre.addItem(new Item("lectern", 50));
 		Room stairs = new Room("These stairs wind round and around.");
 		corridor.setExit("west", stairs);
 		Room road = new Room("This road is one way, except for cycles. Be vigilant for cyclists.");
@@ -71,9 +75,11 @@ public class TextAdventure {
 	private void parse(String verb) {
 		switch(verb) {
 			case "exit": return;
+			case "inventory": printInventory();
 			case "look": System.out.println("Look at what?");
 						 currentRoom.printDescription();
 						 currentRoom.printExits();
+						 currentRoom.printItems();
 						 break;
 			case "move": System.out.println("Move where?");
 						 break;
@@ -86,6 +92,13 @@ public class TextAdventure {
 		switch(verb) {
 			case "move":	move(object);
 							break;
+			case "take":	try {
+								Item item = currentRoom.take(object);
+								this.inventory.add(item);
+							} catch(Exception e) {
+								System.out.println(e.getMessage());
+							}
+							break;
 			default: System.out.println("I do not know how to "+verb+" "+object);
 		}
 	}
@@ -97,6 +110,12 @@ public class TextAdventure {
 			System.out.println("You are in a room...");
 		} catch(Exception e) {
 			System.out.println("Cannot move to "+to);
+		}
+	}
+
+	private void printInventory() {
+		for(Item item : this.inventory) {
+			System.out.println(item);
 		}
 	}
 }
