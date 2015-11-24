@@ -16,8 +16,7 @@ public class Room {
 
 	public void setExit(String direction, Room room)
 	{
-		Door door = new Door(room);
-		this.exits.put(direction, door);
+		this.setOneWayExit(direction, room);
 		String reverseDirection = Room.reverseDirection(direction);
 		if(reverseDirection != null) {
 			room.setOneWayExit(reverseDirection,this);
