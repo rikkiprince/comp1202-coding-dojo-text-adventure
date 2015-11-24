@@ -76,9 +76,11 @@ public class TextAdventure {
 		switch(verb) {
 			case "exit": return;
 			case "inventory": printInventory();
-			case "look": System.out.println("Look at what?");
+			case "look": //System.out.println("Look at what?");
 						 currentRoom.printDescription();
+						 System.out.println();
 						 currentRoom.printExits();
+						 System.out.println();
 						 currentRoom.printItems();
 						 break;
 			case "move": System.out.println("Move where?");
@@ -114,8 +116,19 @@ public class TextAdventure {
 	}
 
 	private void printInventory() {
-		for(Item item : this.inventory) {
-			System.out.println(item);
+		System.out.println();
+		if(this.inventory.isEmpty()) {
+			System.out.println("========================");
+			System.out.println("= You are not carrying anything!");
+			System.out.println("========================");
+			return;
 		}
+		System.out.println("========================");
+		System.out.println("= You are carrying:");
+		for(Item item : this.inventory) {
+			System.out.println("=\t"+item);
+		}
+		System.out.println("========================");
+		System.out.println();
 	}
 }
