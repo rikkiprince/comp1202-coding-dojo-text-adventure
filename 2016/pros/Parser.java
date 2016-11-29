@@ -26,7 +26,7 @@ public class Parser {
 		return this.action;
 	}
 
-	public ArrayList<String> getArguements() {
+	public ArrayList<String> getArguments() {
 		return arguments;
 	}
 
