@@ -51,6 +51,7 @@ public class Parser {
 		ArrayList<String> wordList = new ArrayList<String>(Arrays.asList(words));
 		
 		action = wordList.remove(0);
+		arguments = wordList;
 	}
 
 }
